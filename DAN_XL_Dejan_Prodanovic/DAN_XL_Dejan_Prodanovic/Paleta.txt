@@ -1,12 +1,12 @@
-System.Collections.Generic.List`1[System.String]
-System.Collections.Generic.List`1[System.String]
-System.Collections.Generic.List`1[System.String]
-System.Collections.Generic.List`1[System.String]
-System.Collections.Generic.List`1[System.String]
-System.Collections.Generic.List`1[System.String]
-System.Collections.Generic.List`1[System.String]
-System.Collections.Generic.List`1[System.String]
-System.Collections.Generic.List`1[System.String]
-System.Collections.Generic.List`1[System.String]
-System.Collections.Generic.List`1[System.String]
-System.Collections.Generic.List`1[System.String]
+crvena
+zelena
+plava
+zuta
+crna
+bela
+narancasta
+ljubicasta
+siva
+braon
+svetlo plava
+svetlo crvena

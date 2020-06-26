@@ -8,6 +8,7 @@ namespace DAN_XL_Dejan_Prodanovic
     class Printing
     {
         string[] printingFormats = new string[2];
+        string[] orientations = { "portrait", "landscape" };
         bool[] allComputersPrinted = new bool[10];
         object lock1 = new object();
         object lock2 = new object();
@@ -28,8 +29,6 @@ namespace DAN_XL_Dejan_Prodanovic
         {
             for (int i = 0; i < 10; i++)
             {
-
-
                 string threadName = "racunar" + (i + 1);
                 int temp = i;
                 Thread t = new Thread(() => SendRequest(threadName, temp));
@@ -48,32 +47,30 @@ namespace DAN_XL_Dejan_Prodanovic
                 Console.WriteLine();
 
                 int randomNumber = rnd.Next(0, 2);
+                int randomColor1 = rnd.Next(0,colors.Count);
+                int randomColor2 = rnd.Next(0, colors.Count);
+                int randomOrientation = rnd.Next(0, 2);
                 printingFormatOfRequest = printingFormats[randomNumber];
 
                 if (randomNumber == 0)
                 {
-                   
-                    A3Printer(threadIndex);
+                    A3Printer(colors[randomColor1],orientations[randomOrientation], threadIndex);
                     Thread.Sleep(100);
-                    
                 }
                 else
                 {
-                    //Console.WriteLine(threadName + "je poslao zahtev stampacu2");
-                    A4Printer(threadIndex);
+                    A4Printer(colors[randomColor2], orientations[randomOrientation], threadIndex);
                     Thread.Sleep(100);
-                    
-
                 }
             }
 
         }
-        public void A3Printer(int threadIndex)
+        public void A3Printer(string color,string orientation, int threadIndex)
         {
             lock (lock1)
             {
                 Console.WriteLine("{0} je poslao zahtev za štampanje dokumenta A3 formata. " +
-                    "Boja: [boja]. Orijentacija: [orijentacija]\n", Thread.CurrentThread.Name);
+                    "Boja: {1}. Orijentacija: {2}\n", Thread.CurrentThread.Name, color, orientation);
                 //Console.WriteLine("Stampac1 je dobio zahtev od {0}", Thread.CurrentThread.Name);
                
                
@@ -84,13 +81,13 @@ namespace DAN_XL_Dejan_Prodanovic
             }
         }
 
-        public void A4Printer(int threadIndex)
+        public void A4Printer(string color,string orientation, int threadIndex)
         {
             lock (lock2)
             {
                 //Console.WriteLine("Stampac2 je dobio zahtev od {0}", Thread.CurrentThread.Name);
                 Console.WriteLine("{0} je poslao zahtev za štampanje dokumenta A4 formata. " +
-                   "Boja: [boja]. Orijentacija: [orijentacija]\n", Thread.CurrentThread.Name);
+                   "Boja: {1}. Orijentacija: {2}\n", Thread.CurrentThread.Name,color, orientation);
                 
                 
                 allComputersPrinted[threadIndex] = true;

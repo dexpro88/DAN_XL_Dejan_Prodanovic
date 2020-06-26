@@ -9,7 +9,7 @@ namespace DAN_XL_Dejan_Prodanovic
 {
     class Color
     {
-        public static void WriteClorsToFile(List<string>colors)
+        public static void WriteColorsToFile(List<string>colors)
         {
             if (File.Exists("../../Paleta.txt"))
             {
@@ -18,9 +18,9 @@ namespace DAN_XL_Dejan_Prodanovic
 
             StreamWriter sw = File.AppendText("../../Paleta.txt");
 
-            foreach (var color in colors)
+            foreach (string color in colors)
             {
-                sw.WriteLine(colors);
+                sw.WriteLine(color);
             }
                  
 
