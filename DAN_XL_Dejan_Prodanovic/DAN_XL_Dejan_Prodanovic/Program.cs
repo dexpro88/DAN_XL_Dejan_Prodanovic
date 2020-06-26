@@ -10,7 +10,7 @@ namespace DAN_XL_Dejan_Prodanovic
     {
         static void Main(string[] args)
         {
-            
+            Console.ReadLine();
         }
     }
 }
