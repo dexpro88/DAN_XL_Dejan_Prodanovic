@@ -19,6 +19,9 @@ namespace DAN_XL_Dejan_Prodanovic
         Thread[] threads = new Thread[10];
         bool endOfProgam = false;
 
+        public delegate void ProgramEndedHandler(object source, EventArgs args);
+        public event ProgramEndedHandler ProgramEnded;
+
         public Printing(List<string> colors)
         {
             
@@ -121,7 +124,13 @@ namespace DAN_XL_Dejan_Prodanovic
             {
                 thread.Join();
             }
-            Console.WriteLine("Program je zavrsio sa radom");
+            OnProgramEnded();
+        }
+
+        protected virtual void OnProgramEnded()
+        {
+            if (ProgramEnded != null)
+                ProgramEnded(this, new EventArgs());
         }
     }
 }

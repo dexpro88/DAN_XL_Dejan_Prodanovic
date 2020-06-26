@@ -13,8 +13,13 @@ namespace DAN_XL_Dejan_Prodanovic
              "bela","narancasta","ljubicasta","siva","braon","svetlo plava","svetlo crvena"};
 
             Color.WriteColorsToFile(colors);
+            EndProgramNotification endProgramNotification = new EndProgramNotification();
+
             Printing printing = new Printing(colors);
             printing.StartSendingRequests();
+
+            printing.ProgramEnded += endProgramNotification.OnProgramEnded;
+
             Thread endProgramTread = new Thread(printing.CheckEndOfProgram);
             endProgramTread.Start();
 
