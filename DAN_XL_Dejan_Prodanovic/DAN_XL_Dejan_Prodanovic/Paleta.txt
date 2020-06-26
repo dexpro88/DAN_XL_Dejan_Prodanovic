@@ -1,0 +1,12 @@
+crvena
+zelena
+plava
+zuta
+crna
+bela
+narancasta
+ljubicasta
+siva
+braon
+svetlo plava
+svetlo crvena
