@@ -9,7 +9,11 @@ namespace DAN_XL_Dejan_Prodanovic
     {
         static void Main(string[] args)
         {
-            Printing printing = new Printing();
+            List<string> colors = new List<string>() { "crvena","zelena","plava","zuta","crna",
+             "bela","narancasta","ljubicasta","siva","braon","svetlo plava","svetlo crvena"};
+
+            Color.WriteClorsToFile(colors);
+            Printing printing = new Printing(colors);
             printing.StartSendingRequests();
             Thread endProgramTread = new Thread(printing.CheckEndOfProgram);
             endProgramTread.Start();

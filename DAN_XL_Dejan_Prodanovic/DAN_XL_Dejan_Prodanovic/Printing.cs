@@ -7,14 +7,22 @@ namespace DAN_XL_Dejan_Prodanovic
 {
     class Printing
     {
+        string[] printingFormats = new string[2];
         bool[] allComputersPrinted = new bool[10];
         object lock1 = new object();
         object lock2 = new object();
+        List<string> colors;
 
         Random rnd = new Random();
 
         Thread[] threads = new Thread[10];
         bool endOfProgam = false;
+
+        public Printing(List<string> colors)
+        {
+            
+            this.colors = colors;
+        }
 
         public void StartSendingRequests()
         {
@@ -34,23 +42,25 @@ namespace DAN_XL_Dejan_Prodanovic
 
         public void SendRequest(string threadName, int threadIndex)
         {
+            string printingFormatOfRequest;
             while (!endOfProgam)
             {
                 Console.WriteLine();
 
-                int broj = rnd.Next(1, 3);
+                int randomNumber = rnd.Next(0, 2);
+                printingFormatOfRequest = printingFormats[randomNumber];
 
-                if (broj == 1)
+                if (randomNumber == 0)
                 {
-                    //Console.WriteLine(threadName + "je poslao zahtev stampacu1");
-                    Printer1("nesto za stampac1 blablabla", threadIndex);
+                   
+                    A3Printer(threadIndex);
                     Thread.Sleep(100);
                     
                 }
                 else
                 {
                     //Console.WriteLine(threadName + "je poslao zahtev stampacu2");
-                    Printer2("nesto za stampac2 bezveze", threadIndex);
+                    A4Printer(threadIndex);
                     Thread.Sleep(100);
                     
 
@@ -58,28 +68,34 @@ namespace DAN_XL_Dejan_Prodanovic
             }
 
         }
-        public void Printer1(string nesto, int threadIndex)
+        public void A3Printer(int threadIndex)
         {
             lock (lock1)
             {
-                Console.WriteLine("Stampac1 je dobio zahtev od {0}", Thread.CurrentThread.Name);
-                Console.WriteLine(nesto);
-                Console.WriteLine("\n");
+                Console.WriteLine("{0} je poslao zahtev za štampanje dokumenta A3 formata. " +
+                    "Boja: [boja]. Orijentacija: [orijentacija]\n", Thread.CurrentThread.Name);
+                //Console.WriteLine("Stampac1 je dobio zahtev od {0}", Thread.CurrentThread.Name);
+               
+               
                 allComputersPrinted[threadIndex] = true;
 
                 Thread.Sleep(1000);
+                Console.WriteLine("Korisnik {0} može da preizme dokument A3 formata\n", Thread.CurrentThread.Name);
             }
         }
 
-        public void Printer2(string nesto, int threadIndex)
+        public void A4Printer(int threadIndex)
         {
             lock (lock2)
             {
-                Console.WriteLine("Stampac2 je dobio zahtev od {0}", Thread.CurrentThread.Name);
-                Console.WriteLine(nesto);
-                Console.WriteLine("\n");
+                //Console.WriteLine("Stampac2 je dobio zahtev od {0}", Thread.CurrentThread.Name);
+                Console.WriteLine("{0} je poslao zahtev za štampanje dokumenta A4 formata. " +
+                   "Boja: [boja]. Orijentacija: [orijentacija]\n", Thread.CurrentThread.Name);
+                
+                
                 allComputersPrinted[threadIndex] = true;
                 Thread.Sleep(1000);
+                Console.WriteLine("Korisnik {0} može da preizme dokument A4 formata\n", Thread.CurrentThread.Name);
             }
         }
 
