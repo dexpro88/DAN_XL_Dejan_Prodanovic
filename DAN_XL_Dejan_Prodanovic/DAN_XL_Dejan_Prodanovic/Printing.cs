@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -45,20 +43,72 @@ namespace DAN_XL_Dejan_Prodanovic
                 if (broj == 1)
                 {
                     //Console.WriteLine(threadName + "je poslao zahtev stampacu1");
-                    //Printer1("nesto za stampac1 blablabla", threadIndex);
-                    Thread.Sleep(2000);
-                    //stampac_1.Set();
+                    Printer1("nesto za stampac1 blablabla", threadIndex);
+                    Thread.Sleep(100);
+                    
                 }
                 else
                 {
                     //Console.WriteLine(threadName + "je poslao zahtev stampacu2");
-                    //Printer2("nesto za stampac2 bezveze", threadIndex);
-                    Thread.Sleep(2000);
-                    //stampac_2.Set();
+                    Printer2("nesto za stampac2 bezveze", threadIndex);
+                    Thread.Sleep(100);
+                    
 
                 }
             }
 
+        }
+        public void Printer1(string nesto, int threadIndex)
+        {
+            lock (lock1)
+            {
+                Console.WriteLine("Stampac1 je dobio zahtev od {0}", Thread.CurrentThread.Name);
+                Console.WriteLine(nesto);
+                Console.WriteLine("\n");
+                allComputersPrinted[threadIndex] = true;
+
+                Thread.Sleep(1000);
+            }
+        }
+
+        public void Printer2(string nesto, int threadIndex)
+        {
+            lock (lock2)
+            {
+                Console.WriteLine("Stampac2 je dobio zahtev od {0}", Thread.CurrentThread.Name);
+                Console.WriteLine(nesto);
+                Console.WriteLine("\n");
+                allComputersPrinted[threadIndex] = true;
+                Thread.Sleep(1000);
+            }
+        }
+
+        public void CheckEndOfProgram()
+        {
+            while (true)
+            {
+                bool end = true;
+                foreach (var computerPrinted in allComputersPrinted)
+                {
+                    if (!computerPrinted)
+                    {
+                        end = false;
+                        break;
+                    }
+                }
+                if (end)
+                {
+                    endOfProgam = true;
+                    break;
+                }
+                
+                Thread.Sleep(100);
+            }
+            foreach (var thread in threads)
+            {
+                thread.Join();
+            }
+            Console.WriteLine("Program je zavrsio sa radom");
         }
     }
 }

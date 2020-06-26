@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DAN_XL_Dejan_Prodanovic
@@ -10,6 +9,12 @@ namespace DAN_XL_Dejan_Prodanovic
     {
         static void Main(string[] args)
         {
+            Printing printing = new Printing();
+            printing.StartSendingRequests();
+            Thread endProgramTread = new Thread(printing.CheckEndOfProgram);
+            endProgramTread.Start();
+
+
             Console.ReadLine();
         }
     }
